@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue System Study</title>
+    <style>
+        body {
+            background-color: #0a0f1e;
+            color: #00c3ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin: 50px auto;
+            width: 80%;
+            padding: 20px;
+            border: 2px solid #00c3ff;
+            border-radius: 10px;
+            background-color: rgba(0, 195, 255, 0.1);
+        }
+        .button {
+            background-color: #00c3ff;
+            color: #0a0f1e;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #008fb3;
+        }
+    </style>
+</head>
+<body>
+    <div id="register" class="container">
+        <h1>Hunter Registration</h1>
+        <p>Enter your name to begin your journey.</p>
+        <input type="text" id="hunterName" placeholder="Enter your name">
+        <button class="button" onclick="registerHunter()">Register</button>
+    </div>
+
+    <div id="mainInterface" class="container" style="display: none;">
+        <h1>Welcome to the Blue System Study!</h1>
+        <p>Choose your daily study subject and complete quests to gain XP.</p>
+        <button class="button" onclick="chooseSubject()">Select Subject</button>
+        <div id="studyContent" style="margin-top: 20px;"></div>
+    </div>
+
+    <script>
+        function registerHunter() {
+            let name = document.getElementById("hunterName").value;
+            if (name.trim() !== "") {
+                alert("Welcome, Hunter " + name + "!");
+                document.getElementById("register").style.display = "none";
+                document.getElementById("mainInterface").style.display = "block";
+            } else {
+                alert("Please enter a valid name.");
+            }
+        }
+
+        function chooseSubject() {
+            let subject = prompt("Enter your subject for today:");
+            if (subject) {
+                displayTopics(subject);
+            }
+        }
+
+        function displayTopics(subject) {
+            let topics = {
+                "Math": "Topics: Algebra, Geometry, Trigonometry. Explanation: Algebra deals with equations, Geometry with shapes, and Trigonometry with angles.",
+                "Science": "Topics: Physics, Chemistry, Biology. Explanation: Physics covers forces and motion, Chemistry studies substances, and Biology focuses on living organisms.",
+                "History": "Topics: Ancient Civilizations, World Wars, Indian Independence. Explanation: Learn about the past events that shaped our world.",
+                "English": "Topics: Grammar, Literature, Writing Skills. Explanation: Grammar improves sentence structure, Literature covers famous works, and Writing Skills enhance communication."
+            };
+
+            let content = topics[subject] || "No predefined topics available for this subject. Try another one.";
+            document.getElementById("studyContent").innerHTML = `<p><strong>${subject}</strong>: ${content}</p>`;
+        }
+    </script>
+</body>
+</html>
