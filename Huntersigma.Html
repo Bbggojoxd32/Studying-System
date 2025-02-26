@@ -1,0 +1,86 @@
+<script>
+    function registerHunter() {
+        let name = document.getElementById("hunterName").value;
+        if (name.trim() !== "") {
+            alert("Welcome, Hunter " + name + "!");
+            document.getElementById("register").style.display = "none";
+            document.getElementById("mainInterface").style.display = "block";
+        } else {
+            alert("Please enter a valid name.");
+        }
+    }
+
+    function chooseSubject() {
+        let subject = prompt("Enter your subject for today:").trim().toLowerCase();
+        if (subject) {
+            let langChoice = confirm("Do you want explanations in English? Click 'OK' for English, 'Cancel' for Hindi.");
+            displayTopics(subject, langChoice);
+        }
+    }
+
+    function displayTopics(subject, inEnglish) {
+        let topics = {
+            "maths": {
+                en: "Topics: Algebra, Geometry, Trigonometry, Statistics. Explanation: Algebra deals with equations, Geometry with shapes, Trigonometry with angles, and Statistics with data analysis.",
+                hi: "विषय: बीजगणित, ज्यामिति, त्रिकोणमिति, सांख्यिकी। व्याख्या: बीजगणित समीकरणों से संबंधित है, ज्यामिति आकृतियों से, त्रिकोणमिति कोणों से, और सांख्यिकी डेटा विश्लेषण से।"
+            },
+            "english": {
+                en: "Topics: Grammar, Literature, Writing Skills. Explanation: Focuses on communication, creative writing, and understanding literary works.",
+                hi: "विषय: व्याकरण, साहित्य, लेखन कौशल। व्याख्या: संचार, रचनात्मक लेखन और साहित्यिक कार्यों को समझने पर केंद्रित।"
+            },
+            "english literature": {
+                en: "Topics: Prose, Poetry, Drama. Explanation: Study of classic and modern literary works with analysis.",
+                hi: "विषय: गद्य, काव्य, नाटक। व्याख्या: क्लासिक और आधुनिक साहित्यिक कृतियों का अध्ययन और विश्लेषण।"
+            },
+            "physics": {
+                en: "Topics: Motion, Laws of Motion, Gravitation, Electricity, Magnetism. Explanation: Study of matter, energy, and their interactions.",
+                hi: "विषय: गति, गति के नियम, गुरुत्वाकर्षण, बिजली, चुंबकत्व। व्याख्या: पदार्थ, ऊर्जा और उनके परस्पर क्रियाओं का अध्ययन।"
+            },
+            "biology": {
+                en: "Topics: Cell Biology, Genetics, Human Anatomy, Ecosystems. Explanation: Study of living organisms, their structure, and functions.",
+                hi: "विषय: कोशिका जीवविज्ञान, आनुवंशिकी, मानव शरीर रचना, पारिस्थितिकी तंत्र। व्याख्या: जीवों, उनकी संरचना और कार्यों का अध्ययन।"
+            },
+            "chemistry": {
+                en: "Topics: Atomic Structure, Chemical Reactions, Acids & Bases, Periodic Table. Explanation: Study of elements, compounds, and reactions.",
+                hi: "विषय: परमाणु संरचना, रासायनिक अभिक्रियाएं, अम्ल और क्षार, आवर्त सारणी। व्याख्या: तत्वों, यौगिकों और अभिक्रियाओं का अध्ययन।"
+            },
+            "computer": {
+                en: "Topics: Programming, Data Structures, Logic Gates, Networking. Explanation: Understanding of programming languages, computer operations, and networks.",
+                hi: "विषय: प्रोग्रामिंग, डेटा संरचनाएं, लॉजिक गेट्स, नेटवर्किंग। व्याख्या: प्रोग्रामिंग भाषाओं, कंप्यूटर संचालन और नेटवर्क का ज्ञान।"
+            },
+            "history": {
+                en: "Topics: Ancient Civilizations, Mughal Empire, World Wars, Indian Independence. Explanation: Study of past events shaping the world.",
+                hi: "विषय: प्राचीन सभ्यताएं, मुगल साम्राज्य, विश्व युद्ध, भारतीय स्वतंत्रता। व्याख्या: अतीत की घटनाओं का अध्ययन जो दुनिया को आकार देती हैं।"
+            },
+            "geography": {
+                en: "Topics: Climate, Landforms, Natural Resources, Map Reading. Explanation: Study of Earth's physical features and human interactions with the environment.",
+                hi: "विषय: जलवायु, स्थलरूप, प्राकृतिक संसाधन, मानचित्र अध्ययन। व्याख्या: पृथ्वी की भौतिक विशेषताओं और पर्यावरण के साथ मानव संबंधों का अध्ययन।"
+            },
+            "hindi": {
+                en: "Topics: Grammar, Literature, Essay Writing. Explanation: Study of Hindi language, its grammar, and literary works.",
+                hi: "विषय: व्याकरण, साहित्य, निबंध लेखन। व्याख्या: हिंदी भाषा, उसकी व्याकरण और साहित्यिक कृतियों का अध्ययन।"
+            },
+            "drama": {
+                en: "Topics: Playwriting, Acting, Stage Production. Explanation: Understanding theatrical performances and dramatic arts.",
+                hi: "विषय: नाटक लेखन, अभिनय, मंच उत्पादन। व्याख्या: रंगमंच प्रदर्शन और नाटकीय कलाओं की समझ।"
+            },
+            "physicsp": {
+                en: "Topics: Lab Experiments, Measurements, Newton’s Laws, Practical Circuits. Explanation: Hands-on study of physics concepts.",
+                hi: "विषय: प्रयोगशाला प्रयोग, मापन, न्यूटन के नियम, व्यावहारिक सर्किट। व्याख्या: भौतिकी अवधारणाओं का व्यावहारिक अध्ययन।"
+            },
+            "biologyp": {
+                en: "Topics: Microscope Use, Plant Dissections, DNA Experiments. Explanation: Practical applications of biology concepts.",
+                hi: "विषय: माइक्रोस्कोप का उपयोग, पौधों की विच्छेदन, डीएनए प्रयोग। व्याख्या: जीवविज्ञान अवधारणाओं के व्यावहारिक अनुप्रयोग।"
+            },
+            "chemistryp": {
+                en: "Topics: Titrations, Acid-Base Reactions, Chemical Analysis. Explanation: Practical chemistry experiments in a lab.",
+                hi: "विषय: टाइट्रेशन, अम्ल-क्षार अभिक्रियाएं, रासायनिक विश्लेषण। व्याख्या: प्रयोगशाला में व्यावहारिक रसायन विज्ञान प्रयोग।"
+            }
+        };
+
+        let content = topics[subject] ? (inEnglish ? topics[subject].en : topics[subject].hi) 
+                                      : "No predefined topics available for this subject. Try another one.";
+
+        document.getElementById("studyContent").innerHTML = `<p><strong>${subject.toUpperCase()}</strong>: ${content}</p>`;
+    }
+</script>
